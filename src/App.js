@@ -11,8 +11,8 @@ function App() {
       <Header />
       <Switch>
         <Route exact path="/crown-clothing" component={Homepage} />
-        <Route path="/shop" component={Shop} />
-        <Route path="/signin" component={SignInAndSignUp} />
+        <Route path="/crown-clothing/shop" component={Shop} />
+        <Route path="/crown-clothing/signin" component={SignInAndSignUp} />
       </Switch>
     </div>
   );
