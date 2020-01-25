@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState  } from "react";
 
 import "./directory.style.scss";
 import MenuItem from "../menu-item/MenuItem";
@@ -37,10 +37,11 @@ const Directory = () => {
       linkUrl: "shop/mens"
     }
   ]);
+
   return (
     <div className="directory-menu">
-      {sections.map(s => (
-        <MenuItem key={s.id} section={s} />
+      {sections.map(({id,...s} )=> (
+        <MenuItem key={id} {...s} />
       ))}
     </div>
   );
