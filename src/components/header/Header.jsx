@@ -9,7 +9,7 @@ const Header = () => {
         <Logo className="logo" />
       </Link>
       <div className="options">
-        <Link to="/crown-clothing/shop" className="option">
+        <Link to="/shop" className="option">
           SHOP
         </Link>
         <Link to="/shop" className="option">
