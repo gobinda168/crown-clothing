@@ -5,22 +5,29 @@ import { Route, Switch } from "react-router-dom";
 import Shop from "./pages/shop/Shop";
 import Header from "./components/header/Header";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/SignInAndSignUp";
-import { auth } from "./firebase/firebase.utils";
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
-function App() {
+const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
+
   useEffect(() => {
-    const authentication = async () => {
-      await auth.onAuthStateChanged(user => {
-        setCurrentUser(user);
-        console.log(user)
+    const authentication = () => {
+      auth.onAuthStateChanged(async userAuth => {
+        if (userAuth) {
+          const userRef = await createUserProfileDocument(userAuth);
+          userRef.onSnapshot(snapshot => {
+            setCurrentUser({ id: snapshot.id, ...snapshot.data() });
+          });
+        } else {
+          setCurrentUser(null);
+        }
       });
     };
     authentication();
   });
   return (
     <div>
-      <Header currentUser={currentUser}  />
+      <Header currentUser={currentUser} />
       <Switch>
         <Route exact path="/" component={Homepage} />
         <Route path="/crown-clothing" component={Homepage} />
@@ -29,6 +36,6 @@ function App() {
       </Switch>
     </div>
   );
-}
+};
 
 export default App;
